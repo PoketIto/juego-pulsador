@@ -220,7 +220,7 @@ const Game = () => {
           onMouseLeave={(e) => isPressed && handleStop(e)}
           disabled={gameState === 'playing' && !isPressed}
           className={`
-            w-full py-8 rounded-xl font-bold text-xl
+            w-full py-8 rounded-xl font-bold text-xl select-none
             transition-all duration-150
             ${isPressed ? 'bg-red-600 scale-95' : 'bg-blue-600 hover:bg-blue-700'}
             ${gameState === 'finished' ? 'opacity-50' : ''}
