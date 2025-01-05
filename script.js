@@ -6,18 +6,19 @@ const button = document.getElementById("blindButton");
 const result = document.getElementById("result");
 const history = document.getElementById("history");
 
-// Backend URL (actualiza con tu backend si es necesario)
+// Backend URL
 const backendUrl = "https://juego-backend.onrender.com";
 
 // Generar un tiempo objetivo aleatorio entre 1 y 10 segundos
 function generateTargetTime() {
   targetTime = Math.floor(Math.random() * 10 + 1) * 1000; // En milisegundos
-  result.textContent = `Tu objetivo es ${targetTime / 1000} segundos. ¡Presiona el botón para comenzar!`;
+  result.textContent = `Tu objetivo es ${targetTime / 1000} segundos. ¡Prepárate!`;
 }
 
 // Iniciar el temporizador cuando se presiona el botón
 button.addEventListener("mousedown", () => {
   timer = 0; // Reiniciar el temporizador
+  result.textContent = "¡Mantén presionado el botón!";
   timerInterval = setInterval(() => {
     timer += 100; // Incrementar el temporizador cada 100 ms
   }, 100); // Intervalo de 100 ms
@@ -33,7 +34,7 @@ button.addEventListener("mouseup", () => {
   // Determinar el resultado basado en la diferencia
   let outcome;
   if (difference <= 200) {
-    outcome = `¡Ganaste! Diferencia: ${difference} ms.`;
+    outcome = `¡Ganaste! Precisión: ${difference} ms.`;
   } else {
     outcome = `¡Perdiste! Diferencia: ${difference} ms.`;
   }
@@ -43,7 +44,7 @@ button.addEventListener("mouseup", () => {
 
   // Añadir al historial local (mantener solo los últimos 5 resultados)
   const historyItem = document.createElement("li");
-  historyItem.textContent = `Tiempo objetivo: ${targetTime / 1000} s, Tiempo real: ${timer / 1000} s, Resultado: ${outcome}`;
+  historyItem.textContent = `Objetivo: ${targetTime / 1000} s, Real: ${timer / 1000} s, ${outcome}`;
   history.prepend(historyItem);
   if (history.childElementCount > 5) {
     history.removeChild(history.lastChild); // Eliminar el más antiguo
@@ -74,7 +75,7 @@ window.onload = () => {
     .then((data) => {
       data.slice(-5).forEach((item) => {
         const historyItem = document.createElement("li");
-        historyItem.textContent = `Tiempo objetivo: ${item.tiempoObjetivo} s, Tiempo real: ${item.tiempoReal} s, Resultado: ${item.resultado}`;
+        historyItem.textContent = `Objetivo: ${item.tiempoObjetivo} s, Real: ${item.tiempoReal} s, ${item.resultado}`;
         history.prepend(historyItem);
       });
     })
