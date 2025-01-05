@@ -4,27 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>El Pulsador</title>
-    <!-- Estilos -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <!-- React -->
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-    <!-- Babel -->
     <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
-    <style>
-        .icon {
-            width: 24px;
-            height: 24px;
-        }
-    </style>
 </head>
 <body>
     <div id="root"></div>
-    <script type="text/babel" src="game.js"></script>
     <script type="text/babel">
         const rootNode = document.getElementById('root');
         const root = ReactDOM.createRoot(rootNode);
         root.render(React.createElement(Game));
     </script>
+    <script type="text/babel" src="game.js"></script>
 </body>
 </html>
