@@ -39,6 +39,7 @@ const Game = () => {
     sounds[type].play();
   };
 
+
   const generateTargetTime = () => {
     const minTime = 2000;
     const maxTime =
