@@ -41,7 +41,7 @@ button.addEventListener("mouseup", () => {
 
   // Determinar el resultado basado en la diferencia
   let outcome;
-  if (difference <= 200) {
+  if (difference <= 401) {
     outcome = `¡Ganaste! Precisión: ${difference} ms.`;
     resultBox.className = "win"; // Estilo verde
   } else {
