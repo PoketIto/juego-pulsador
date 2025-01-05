@@ -5,7 +5,7 @@ const button = document.getElementById("blindButton");
 const result = document.getElementById("result");
 const history = document.getElementById("history");
 
-// Backend URL (actualiza con tu backend)
+// Backend URL (actualízalo con tu backend)
 const backendUrl = "https://juego-backend.onrender.com";
 
 // Iniciar el temporizador cuando se presiona el botón
@@ -58,9 +58,9 @@ window.onload = () => {
     .then((data) => {
       data.forEach((item) => {
         const historyItem = document.createElement("li");
-        historyItem.textContent = `Tiempo: ${item.tiempo}, Resultado: ${item.resultado}, Fecha: ${new Date(
-          item.fecha
-        ).toLocaleString()}`;
+        historyItem.textContent = `Tiempo: ${item.tiempo}, Resultado: ${
+          item.resultado
+        }, Fecha: ${new Date(item.fecha).toLocaleString()}`;
         history.appendChild(historyItem);
       });
     })
