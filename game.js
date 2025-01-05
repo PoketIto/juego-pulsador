@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import { Medal, Target, RotateCcw } from 'lucide-react';
+// Obtenemos los íconos de Lucide global
+const { Medal, Target, RotateCcw } = lucide;
 
 const Game = () => {
   // Estados del juego
-  const [timer, setTimer] = useState(0);
-  const [targetTime, setTargetTime] = useState(0);
-  const [isPressed, setIsPressed] = useState(false);
-  const [gameState, setGameState] = useState('ready');
-  const [score, setScore] = useState(0);
-  const [history, setHistory] = useState([]);
-  const [difficulty, setDifficulty] = useState('medium');
-  const [streak, setStreak] = useState(0);
-  const [gameMessage, setGameMessage] = useState('¡Prepárate para jugar!');
+  const [timer, setTimer] = React.useState(0);
+  const [targetTime, setTargetTime] = React.useState(0);
+  const [isPressed, setIsPressed] = React.useState(false);
+  const [gameState, setGameState] = React.useState('ready');
+  const [score, setScore] = React.useState(0);
+  const [history, setHistory] = React.useState([]);
+  const [difficulty, setDifficulty] = React.useState('medium');
+  const [streak, setStreak] = React.useState(0);
+  const [gameMessage, setGameMessage] = React.useState('¡Prepárate para jugar!');
 
   // Configuración de dificultad
   const difficultySettings = {
@@ -22,19 +22,19 @@ const Game = () => {
 
   // Generar tiempo objetivo
   const generateTargetTime = () => {
-    const minTime = 2000; // 2 segundos
+    const minTime = 2000;
     const maxTime = difficulty === 'easy' ? 8000 : 
                     difficulty === 'medium' ? 6000 : 4000;
     return Math.floor(Math.random() * (maxTime - minTime) + minTime);
   };
 
   // Inicializar juego
-  useEffect(() => {
+  React.useEffect(() => {
     setTargetTime(generateTargetTime());
   }, [difficulty]);
 
   // Timer cuando el botón está presionado
-  useEffect(() => {
+  React.useEffect(() => {
     let interval;
     if (isPressed) {
       interval = setInterval(() => {
@@ -59,7 +59,6 @@ const Game = () => {
       setGameState('finished');
       const difference = Math.abs(targetTime - timer);
       
-      // Calcular puntos
       let points = 0;
       let resultMessage = '';
       
@@ -75,7 +74,6 @@ const Game = () => {
       setGameMessage(resultMessage);
       setScore(prev => prev + points);
 
-      // Actualizar historial
       setHistory(prev => [{
         target: targetTime,
         actual: timer,
@@ -83,7 +81,6 @@ const Game = () => {
         points
       }, ...prev].slice(0, 5));
 
-      // Preparar siguiente ronda
       setTimeout(() => {
         setGameState('ready');
         setTargetTime(generateTargetTime());
@@ -102,111 +99,100 @@ const Game = () => {
     setGameMessage('¡Prepárate para jugar!');
   };
 
-  return (
-    <div className="min-h-screen bg-gray-900 text-white p-4">
-      <div className="max-w-md mx-auto space-y-6">
-        {/* Cabecera */}
-        <div className="text-center">
-          <h1 className="text-3xl font-bold mb-2">El Pulsador</h1>
-          
-          {/* Panel de Estado */}
-          <div className="bg-blue-900 p-4 rounded-lg min-h-[100px] flex flex-col justify-center">
-            <h2 className={`text-xl font-bold text-blue-200 ${gameState === 'ready' ? 'animate-pulse' : ''}`}>
-              Objetivo: {(targetTime/1000).toFixed(2)} segundos
-            </h2>
-            <p className="text-blue-300 mt-2">
-              {gameMessage}
-            </p>
-          </div>
-        </div>
+  return React.createElement('div', { className: "min-h-screen bg-gray-900 text-white p-4" },
+    React.createElement('div', { className: "max-w-md mx-auto space-y-6" },
+      // Cabecera
+      React.createElement('div', { className: "text-center" },
+        React.createElement('h1', { className: "text-3xl font-bold mb-2" }, "El Pulsador"),
+        React.createElement('div', { className: "bg-blue-900 p-4 rounded-lg min-h-[100px] flex flex-col justify-center" },
+          React.createElement('h2', { 
+            className: `text-xl font-bold text-blue-200 ${gameState === 'ready' ? 'animate-pulse' : ''}` 
+          }, `Objetivo: ${(targetTime/1000).toFixed(2)} segundos`),
+          React.createElement('p', { className: "text-blue-300 mt-2" }, gameMessage)
+        )
+      ),
 
-        {/* Panel de Control */}
-        <div className="flex justify-between items-center bg-gray-800 p-4 rounded-lg">
-          <div className="flex items-center gap-2">
-            <Medal className="text-yellow-500" />
-            <span className="text-xl font-bold">{score}</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <Target className="text-red-500" />
-            <span className="text-xl font-bold">x{streak}</span>
-          </div>
-          <select 
-            className="bg-gray-700 rounded px-2 py-1"
-            value={difficulty}
-            onChange={(e) => setDifficulty(e.target.value)}
-            disabled={gameState === 'playing'}
-          >
-            <option value="easy">Fácil</option>
-            <option value="medium">Medio</option>
-            <option value="hard">Difícil</option>
-          </select>
-          <button 
-            onClick={resetGame}
-            className="p-2 hover:bg-gray-700 rounded-full"
-            disabled={gameState === 'playing'}
-          >
-            <RotateCcw className="text-gray-400" />
-          </button>
-        </div>
+      // Panel de Control
+      React.createElement('div', { className: "flex justify-between items-center bg-gray-800 p-4 rounded-lg" },
+        React.createElement('div', { className: "flex items-center gap-2" },
+          React.createElement(Medal, { className: "text-yellow-500" }),
+          React.createElement('span', { className: "text-xl font-bold" }, score)
+        ),
+        React.createElement('div', { className: "flex items-center gap-2" },
+          React.createElement(Target, { className: "text-red-500" }),
+          React.createElement('span', { className: "text-xl font-bold" }, `x${streak}`)
+        ),
+        React.createElement('select', {
+          className: "bg-gray-700 rounded px-2 py-1",
+          value: difficulty,
+          onChange: (e) => setDifficulty(e.target.value),
+          disabled: gameState === 'playing'
+        },
+          React.createElement('option', { value: "easy" }, "Fácil"),
+          React.createElement('option', { value: "medium" }, "Medio"),
+          React.createElement('option', { value: "hard" }, "Difícil")
+        ),
+        React.createElement('button', {
+          onClick: resetGame,
+          className: "p-2 hover:bg-gray-700 rounded-full",
+          disabled: gameState === 'playing'
+        },
+          React.createElement(RotateCcw, { className: "text-gray-400" })
+        )
+      ),
 
-        {/* Botón Principal */}
-        <button
-          onMouseDown={handleStart}
-          onMouseUp={handleStop}
-          onMouseLeave={() => isPressed && handleStop()}
-          disabled={gameState === 'playing' && !isPressed}
-          className={`
-            w-full py-8 rounded-xl font-bold text-xl
-            transition-all duration-150
-            ${isPressed ? 
-              'bg-red-600 scale-95' : 
-              'bg-blue-600 hover:bg-blue-700'
-            }
-            ${gameState === 'finished' ? 'opacity-50' : ''}
-            disabled:opacity-50 disabled:cursor-not-allowed
-          `}
-        >
-          {gameState === 'ready' ? 'Presiona y Mantén' : 
-           gameState === 'playing' ? '¡Suelta!' : 
-           'Preparando siguiente ronda...'}
-        </button>
+      // Botón Principal
+      React.createElement('button', {
+        onMouseDown: handleStart,
+        onMouseUp: handleStop,
+        onMouseLeave: () => isPressed && handleStop(),
+        disabled: gameState === 'playing' && !isPressed,
+        className: `
+          w-full py-8 rounded-xl font-bold text-xl
+          transition-all duration-150
+          ${isPressed ? 'bg-red-600 scale-95' : 'bg-blue-600 hover:bg-blue-700'}
+          ${gameState === 'finished' ? 'opacity-50' : ''}
+          disabled:opacity-50 disabled:cursor-not-allowed
+        `
+      }, 
+        gameState === 'ready' ? 'Presiona y Mantén' : 
+        gameState === 'playing' ? '¡Suelta!' : 
+        'Preparando siguiente ronda...'
+      ),
 
-        {/* Indicador de estado (sin mostrar el tiempo) */}
-        <div className="h-2 bg-gray-800 rounded-full overflow-hidden">
-          <div 
-            className={`h-full transition-all duration-100 ${
-              gameState === 'finished' ? 
-                (Math.abs(targetTime - timer) <= difficultySettings[difficulty].margin ? 
-                  'bg-green-500' : 'bg-red-500') : 
-                'bg-blue-600'
-            }`}
-            style={{ 
-              width: isPressed ? '100%' : '0%'
-            }}
-          />
-        </div>
+      // Indicador de estado
+      React.createElement('div', { className: "h-2 bg-gray-800 rounded-full overflow-hidden" },
+        React.createElement('div', {
+          className: `h-full transition-all duration-100 ${
+            gameState === 'finished' ? 
+              (Math.abs(targetTime - timer) <= difficultySettings[difficulty].margin ? 
+                'bg-green-500' : 'bg-red-500') : 
+              'bg-blue-600'
+          }`,
+          style: { 
+            width: isPressed ? '100%' : '0%'
+          }
+        })
+      ),
 
-        {/* Historial */}
-        <div className="mt-6">
-          <h2 className="text-xl font-bold mb-3">Últimos Intentos</h2>
-          <div className="space-y-2">
-            {history.map((entry, index) => (
-              <div 
-                key={index}
-                className="p-3 bg-gray-800 rounded-lg flex flex-col sm:flex-row justify-between items-center gap-2"
-              >
-                <span>Objetivo: {(entry.target/1000).toFixed(2)}s</span>
-                <span>Tiempo: {(entry.actual/1000).toFixed(2)}s</span>
-                <span className={entry.points > 0 ? 'text-green-500' : 'text-red-500'}>
-                  {entry.points > 0 ? `+${entry.points}` : 'Fallado'}
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </div>
+      // Historial
+      React.createElement('div', { className: "mt-6" },
+        React.createElement('h2', { className: "text-xl font-bold mb-3" }, "Últimos Intentos"),
+        React.createElement('div', { className: "space-y-2" },
+          history.map((entry, index) =>
+            React.createElement('div', {
+              key: index,
+              className: "p-3 bg-gray-800 rounded-lg flex flex-col sm:flex-row justify-between items-center gap-2"
+            },
+              React.createElement('span', null, `Objetivo: ${(entry.target/1000).toFixed(2)}s`),
+              React.createElement('span', null, `Tiempo: ${(entry.actual/1000).toFixed(2)}s`),
+              React.createElement('span', {
+                className: entry.points > 0 ? 'text-green-500' : 'text-red-500'
+              }, entry.points > 0 ? `+${entry.points}` : 'Fallado')
+            )
+          )
+        )
+      )
+    )
   );
 };
-
-export default Game;
