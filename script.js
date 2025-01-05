@@ -7,19 +7,19 @@ const result = document.getElementById("result");
 const history = document.getElementById("history");
 const objective = document.getElementById("objective"); // Elemento para mostrar el objetivo
 
-// Backend URL (actualiza con tu backend si es necesario)
+// Backend URL (ajusta con tu backend si es necesario)
 const backendUrl = "https://juego-backend.onrender.com";
 
 // Generar un tiempo objetivo aleatorio entre 1 y 10 segundos
 function generateTargetTime() {
   targetTime = Math.floor(Math.random() * 10 + 1) * 1000; // En milisegundos
-  objective.textContent = `Tu objetivo es ${targetTime / 1000} segundos. ¡Prepárate!`;
+  objective.textContent = `Tu objetivo es mantener el botón presionado durante ${targetTime / 1000} segundos. ¡Prepárate!`;
 }
 
 // Iniciar el temporizador cuando se presiona el botón
 button.addEventListener("mousedown", () => {
   timer = 0; // Reiniciar el temporizador
-  result.textContent = "¡Mantén presionado el botón!"; // Mensaje mientras el botón está presionado
+  result.textContent = "¡Mantén presionado el botón!"; // Mostrar mensaje durante la pulsación
   timerInterval = setInterval(() => {
     timer += 100; // Incrementar el temporizador cada 100 ms
   }, 100); // Intervalo de 100 ms
@@ -83,5 +83,5 @@ window.onload = () => {
     .catch((error) => console.error("Error al cargar el historial:", error));
 
   // Generar el primer objetivo
-  generateTargetTime();
+  generateTargetTime(); // Mostrar el objetivo inicial
 };
