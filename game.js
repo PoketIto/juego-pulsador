@@ -148,6 +148,21 @@ const Game = () => {
     setLevel(1);
   };
 
+  // SVG Icon Components
+  const VolumeIcon = () => (
+    <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+      {soundEnabled && <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07" />}
+    </svg>
+  );
+
+  const AwardIcon = () => (
+    <svg className="w-6 h-6 text-yellow-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+      <circle cx="12" cy="8" r="6" />
+      <path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11" />
+    </svg>
+  );
+
   return (
     <div className="min-h-screen bg-gray-900 text-white p-4">
       <div className="max-w-md mx-auto space-y-6">
@@ -167,8 +182,24 @@ const Game = () => {
         >
           {gameState === 'ready' ? 'Presiona y Mantén' : '¡Suelta!'}
         </button>
-        <p className="text-lg">Puntuación: {score}</p>
-        <button onClick={resetGame} className="bg-gray-700 px-4 py-2 rounded">Reiniciar</button>
+        <div className="flex justify-between items-center">
+          <span>Nivel: {level}</span>
+          <button onClick={() => setSoundEnabled(!soundEnabled)} className="p-2">
+            <VolumeIcon />
+          </button>
+        </div>
+        <button onClick={resetGame} className="bg-gray-700 px-4 py-2 rounded">
+          Reiniciar
+        </button>
+        <div className="bg-gray-800 p-4 rounded-lg">
+          <h2 className="text-lg">Historial</h2>
+          {history.map((entry, index) => (
+            <div key={index} className="flex justify-between">
+              <span>Tiempo: {(entry.actual / 1000).toFixed(2)}s</span>
+              <span>Puntos: {entry.points > 0 ? `+${entry.points}` : 'Fallado'}</span>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
