@@ -4,13 +4,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>El Pulsador</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- React -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+    
+    <!-- Babel -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js"></script>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background-color: #111827;
+            touch-action: manipulation;
+        }
+        /* Prevenir el zoom en dispositivos móviles al doble tap */
+        button {
+            touch-action: manipulation;
+        }
+        /* Deshabilitar la selección de texto */
+        * {
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+    </style>
 </head>
-<body class="bg-gray-900 text-white">
+<body>
     <div id="root"></div>
-    <script type="text/babel" src="game.js"></script>
+
+    <script type="text/babel">
+        // Aquí va el código del componente Game que creamos antes
+        // Puedes copiar y pegar aquí todo el contenido del artifact anterior
+        
+        const rootNode = document.getElementById('root');
+        const root = ReactDOM.createRoot(rootNode);
+        root.render(<Game />);
+    </script>
 </body>
 </html>
