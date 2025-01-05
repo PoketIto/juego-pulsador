@@ -12,7 +12,7 @@ const Game = () => {
   const difficultySettings = {
     easy: { margin: 500, points: 100 },
     medium: { margin: 300, points: 200 },
-    hard: { margin: 150, points: 300 }
+    hard: { margin: 150, points: 300 },
   };
 
   const generateTargetTime = () => {
@@ -30,7 +30,7 @@ const Game = () => {
     let interval;
     if (isPressed) {
       interval = setInterval(() => {
-        setTimer(prev => prev + 10);
+        setTimer((prev) => prev + 10);
       }, 10);
     }
     return () => clearInterval(interval);
@@ -50,28 +50,40 @@ const Game = () => {
       setIsPressed(false);
       setGameState('finished');
       const difference = Math.abs(targetTime - timer);
-      
+
       let points = 0;
       let resultMessage = '';
-      
+
       if (difference <= difficultySettings[difficulty].margin) {
-        points = Math.round((1 - difference/difficultySettings[difficulty].margin) * difficultySettings[difficulty].points);
-        setStreak(prev => prev + 1);
-        resultMessage = `¡Perfecto! Diferencia: ${(difference/1000).toFixed(2)}s`;
+        points = Math.round(
+          (1 - difference / difficultySettings[difficulty].margin) *
+            difficultySettings[difficulty].points
+        );
+        setStreak((prev) => prev + 1);
+        resultMessage = `¡Perfecto! Diferencia: ${(difference / 1000).toFixed(
+          2
+        )}s`;
       } else {
         setStreak(0);
-        resultMessage = `No esta mal. Diferencia: ${(difference/1000).toFixed(2)}s`;
+        resultMessage = `No está mal. Diferencia: ${(difference / 1000).toFixed(
+          2
+        )}s`;
       }
-      
-      setGameMessage(resultMessage);
-      setScore(prev => prev + points);
 
-      setHistory(prev => [{
-        target: targetTime,
-        actual: timer,
-        difference,
-        points
-      }, ...prev].slice(0, 5));
+      setGameMessage(resultMessage);
+      setScore((prev) => prev + points);
+
+      setHistory((prev) =>
+        [
+          {
+            target: targetTime,
+            actual: timer,
+            difference,
+            points,
+          },
+          ...prev,
+        ].slice(0, 5)
+      );
 
       setTimeout(() => {
         setGameState('ready');
@@ -91,43 +103,39 @@ const Game = () => {
     setGameMessage('¡Prepárate para jugar!');
   };
 
-  // Iconos simplificados
   const MedalIcon = () => (
     <svg className="icon text-yellow-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-      <circle cx="12" cy="9" r="3"/>
-      <path d="M12 12v9M8 21h8"/>
+      <circle cx="12" cy="9" r="3" />
+      <path d="M12 12v9M8 21h8" />
     </svg>
   );
 
   const TargetIcon = () => (
     <svg className="icon text-red-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-      <circle cx="12" cy="12" r="10"/>
-      <circle cx="12" cy="12" r="6"/>
-      <circle cx="12" cy="12" r="2"/>
+      <circle cx="12" cy="12" r="10" />
+      <circle cx="12" cy="12" r="6" />
+      <circle cx="12" cy="12" r="2" />
     </svg>
   );
 
   const ResetIcon = () => (
     <svg className="icon text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-      <path d="M3 12a9 9 0 1 1 9 9M3 12h9"/>
+      <path d="M3 12a9 9 0 1 1 9 9M3 12h9" />
     </svg>
   );
 
   return (
     <div className="min-h-screen bg-gray-900 text-white p-4">
       <div className="max-w-md mx-auto space-y-6">
-        {/* Cabecera */}
         <div className="text-center">
           <h1 className="text-3xl font-bold mb-2">El Pulsador</h1>
           <div className="bg-blue-900 p-4 rounded-lg min-h-[100px] flex flex-col justify-center">
             <h2 className={`text-xl font-bold text-blue-200 ${gameState === 'ready' ? 'animate-pulse' : ''}`}>
-              Objetivo: {(targetTime/1000).toFixed(2)} segundos
+              Objetivo: {(targetTime / 1000).toFixed(2)} segundos
             </h2>
             <p className="text-blue-300 mt-2">{gameMessage}</p>
           </div>
         </div>
-
-        {/* Panel de Control */}
         <div className="flex justify-between items-center bg-gray-800 p-4 rounded-lg">
           <div className="flex items-center gap-2">
             <MedalIcon />
@@ -137,7 +145,7 @@ const Game = () => {
             <TargetIcon />
             <span className="text-xl font-bold">x{streak}</span>
           </div>
-          <select 
+          <select
             className="bg-gray-700 rounded px-2 py-1"
             value={difficulty}
             onChange={(e) => setDifficulty(e.target.value)}
@@ -147,7 +155,7 @@ const Game = () => {
             <option value="medium">Medio</option>
             <option value="hard">Difícil</option>
           </select>
-          <button 
+          <button
             onClick={resetGame}
             className="p-2 hover:bg-gray-700 rounded-full"
             disabled={gameState === 'playing'}
@@ -155,8 +163,6 @@ const Game = () => {
             <ResetIcon />
           </button>
         </div>
-
-        {/* Botón Principal */}
         <button
           onMouseDown={handleStart}
           onMouseUp={handleStop}
@@ -174,8 +180,6 @@ const Game = () => {
            gameState === 'playing' ? '¡Suelta!' : 
            'Preparando siguiente ronda...'}
         </button>
-
-        {/* Indicador de estado */}
         <div className="h-2 bg-gray-800 rounded-full overflow-hidden">
           <div 
             className={`h-full transition-all duration-100 ${
@@ -184,13 +188,9 @@ const Game = () => {
                   'bg-green-500' : 'bg-red-500') : 
                 'bg-blue-600'
             }`}
-            style={{ 
-              width: isPressed ? '100%' : '0%'
-            }}
+            style={{ width: isPressed ? '100%' : '0%' }}
           />
         </div>
-
-        {/* Historial */}
         <div className="mt-6">
           <h2 className="text-xl font-bold mb-3">Últimos Intentos</h2>
           <div className="space-y-2">
@@ -199,8 +199,8 @@ const Game = () => {
                 key={index}
                 className="p-3 bg-gray-800 rounded-lg flex flex-col sm:flex-row justify-between items-center gap-2"
               >
-                <span>Objetivo: {(entry.target/1000).toFixed(2)}s</span>
-                <span>Tiempo: {(entry.actual/1000).toFixed(2)}s</span>
+                <span>Objetivo: {(entry.target / 1000).toFixed(2)}s</span>
+                <span>Tiempo: {(entry.actual / 1000).toFixed(2)}s</span>
                 <span className={entry.points > 0 ? 'text-green-500' : 'text-red-500'}>
                   {entry.points > 0 ? `+${entry.points}` : 'Fallado'}
                 </span>
