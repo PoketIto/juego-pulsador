@@ -76,3 +76,30 @@ button:active {
   margin: 10px 0;
   color: #007BFF;
 }
+
+#resultBox {
+  margin-top: 20px;
+  padding: 15px;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 5px;
+  text-align: center;
+  display: none; /* Oculto por defecto */
+}
+
+#resultBox.win {
+  background-color: #d4edda; /* Verde claro */
+  color: #155724; /* Verde oscuro */
+  border: 1px solid #c3e6cb;
+}
+
+#resultBox.lose {
+  background-color: #f8d7da; /* Rojo claro */
+  color: #721c24; /* Rojo oscuro */
+  border: 1px solid #f5c6cb;
+}
+
+.hidden {
+  display: none;
+}
+
