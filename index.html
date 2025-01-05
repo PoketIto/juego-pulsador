@@ -9,13 +9,14 @@
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
 </head>
-<body>
+<body class="bg-gray-900 text-white">
     <div id="root"></div>
+
+    <script type="text/babel" src="game.js"></script>
     <script type="text/babel">
         const rootNode = document.getElementById('root');
-        const root = ReactDOM.createRoot(rootNode);
-        root.render(React.createElement(Game));
+        const root = ReactDOM.createRoot(rootNode); // React 18
+        root.render(<Game />);
     </script>
-    <script type="text/babel" src="game.js"></script>
 </body>
 </html>
