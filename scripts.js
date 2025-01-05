@@ -41,7 +41,7 @@ button.addEventListener("mouseup", () => {
   history.appendChild(historyItem);
 
   // Enviar los datos al backend
-  fetch(`${backendUrl}/resultados`, {
+/*  fetch(`${backendUrl}/resultados`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ tiempo: timer, resultado: outcome }),
@@ -66,3 +66,4 @@ window.onload = () => {
     })
     .catch((error) => console.error("Error al cargar el historial:", error));
 };
+*/
